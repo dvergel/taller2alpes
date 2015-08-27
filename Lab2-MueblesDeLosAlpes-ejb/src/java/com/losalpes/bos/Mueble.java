@@ -11,11 +11,12 @@
 
 package com.losalpes.bos;
 
+import java.math.BigDecimal;
+
 /**
  * Clase que representa la información de un mueble en el sistema
  */
-public class Mueble
-{
+public class Mueble {
 
     //-----------------------------------------------------------
     // Atributos
@@ -45,6 +46,11 @@ public class Mueble
      * Indica si el mueble fue seleccionado
      */
     private boolean seleccion;
+    
+    /**
+     * Precio del mueble
+     */
+    private BigDecimal precio;
 
     //-----------------------------------------------------------
     // Constructores
@@ -53,26 +59,45 @@ public class Mueble
     /**
      * Constructor sin argumentos de la clase
      */
-    public Mueble() 
-    {
-
+    public Mueble(){
+        super();
     }
 
     /**
-     * Constructor de la clase. Inicializa los atributos con los valores que ingresan por parametro.
+     * Constructor de la clase. Inicializa los atributos con los valores que 
+     * ingresan por parametro.
      * @param referencia Referencia del mueble
      * @param nombre Nombre del mueble
      * @param descripcion Descripión del mueble
      * @param tipo Tipo de mueble
      */
-    public Mueble(String referencia, String nombre, String descripcion, TipoMueble tipo)
-    {
+    public Mueble(String referencia, String nombre, String descripcion, 
+            TipoMueble tipo){
         this.referencia = referencia;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.tipo = tipo;
     }
 
+    /**
+     * Constructor de la clase. Inicializa los atributos con los valores que
+     * ingresan por parametro
+     * @param referencia Referencia del mueble
+     * @param nombre Nombre del mueble
+     * @param descripcion Descripión del mueble
+     * @param tipo Tipo de mueble
+     * @param precio Precio del mueble
+     */
+    public Mueble(String referencia, String nombre, String descripcion, 
+            TipoMueble tipo, BigDecimal precio) {
+        this.referencia = referencia;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.tipo = tipo;
+        this.precio = precio;
+    }
+    
+    
     //-----------------------------------------------------------
     // Getters y setters
     //-----------------------------------------------------------
@@ -81,8 +106,7 @@ public class Mueble
      * Devuelve la descripción del mueble
      * @return descripcion Descripción del mueble
      */
-    public String getDescripcion()
-    {
+    public String getDescripcion() {
         return descripcion;
     }
 
@@ -90,8 +114,7 @@ public class Mueble
      * Modifica la descripción del mueble
      * @param descripcion Nueva descripción del mueble
      */
-    public void setDescripcion(String descripcion)
-    {
+    public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
 
@@ -99,8 +122,7 @@ public class Mueble
      * Devuelve el nombre del mueble
      * @return nombre Nombre del mueble
      */
-    public String getNombre()
-    {
+    public String getNombre() {
         return nombre;
     }
 
@@ -108,8 +130,7 @@ public class Mueble
      * Modifica el nombre del mueble
      * @param nombre Nuevo nombre del mueble
      */
-    public void setNombre(String nombre)
-    {
+    public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
@@ -117,8 +138,7 @@ public class Mueble
      * Devuelve la referencia del mueble
      * @return referencia Referencia del mueble
      */
-    public String getReferencia()
-    {
+    public String getReferencia() {
         return referencia;
     }
 
@@ -134,8 +154,7 @@ public class Mueble
      * Devuelve el tipo de mueble
      * @return tipo Tipo de mueble
      */
-    public TipoMueble getTipo()
-    {
+    public TipoMueble getTipo() {
         return tipo;
     }
 
@@ -143,8 +162,7 @@ public class Mueble
      * Modifica el tipo de mueble
      * @param tipo Nuevo tipo de mueble
      */
-    public void setTipo(TipoMueble tipo)
-    {
+    public void setTipo(TipoMueble tipo) {
         this.tipo = tipo;
     }
 
@@ -152,8 +170,7 @@ public class Mueble
      * Devuelve el estado de selección del mueble
      * @return seleccion Verdadero o falso
      */
-    public boolean isSeleccion()
-    {
+    public boolean isSeleccion() {
         return seleccion;
     }
 
@@ -161,10 +178,27 @@ public class Mueble
      * Cambia el estado de selección de un mueble
      * @param seleccion Nuevo estado de selección
      */
-    public void setSeleccion(boolean seleccion)
-    {
+    public void setSeleccion(boolean seleccion) {
         this.seleccion = seleccion;
     }
+
+    /**
+     * Retorna el precio del mueble
+     * @return Precio del mueble
+     */
+    public BigDecimal getPrecio() {
+        return precio;
+    }
+    
+    /**
+     * Establece el precio del mueble
+     * @param precio Nuevo precio del mueble.
+     */
+    public void setPrecio(BigDecimal precio) {
+        this.precio = precio;
+    }
+    
+    
 
 
 }

@@ -102,6 +102,14 @@
                         <h:outputText value="#{file.tipo}" />
                     </p:column>
                     
+                    <p:column headerText="Precio">
+                        <h:outputText value="#{file.precio}" />
+                    </p:column>
+                    
+                    <p:column headerText="Comprar">
+                        <p:selectBooleanButton id="sel" value="#{file.seleccion}" onLabel="Sí" offLabel="No"/>
+                    </p:column>
+                    
                 </p:dataTable>
 
         </h:form>
