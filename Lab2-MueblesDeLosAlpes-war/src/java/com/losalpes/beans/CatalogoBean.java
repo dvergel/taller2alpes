@@ -15,7 +15,7 @@ package com.losalpes.beans;
 import com.losalpes.bos.Mueble;
 import com.losalpes.bos.TipoMueble;
 import com.losalpes.servicios.IServicioCatalogo;
-import com.losalpes.servicios.ServicioCatalogoMock;
+import com.losalpes.servicios.impl.ServicioCatalogoMock;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.model.SelectItem;

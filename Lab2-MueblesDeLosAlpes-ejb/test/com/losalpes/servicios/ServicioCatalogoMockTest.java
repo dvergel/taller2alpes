@@ -12,6 +12,7 @@
 
 package com.losalpes.servicios;
 
+import com.losalpes.servicios.impl.ServicioCatalogoMock;
 import com.losalpes.bos.TipoMueble;
 import com.losalpes.bos.Mueble;
 import java.util.ArrayList;
