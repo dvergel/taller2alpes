@@ -34,7 +34,7 @@
     <navigation-rule>
         <from-view-id>/index.xhtml</from-view-id>
         <navigation-case>
-            <from-action>#{loginBean.login}</from-action>
+            <from-action>login</from-action>
             <from-outcome>login</from-outcome>
             <to-view-id>/inicio.xhtml</to-view-id>
         </navigation-case>
@@ -42,6 +42,11 @@
             <from-action>#{loginBean.login}</from-action>
             <from-outcome>logout</from-outcome>
             <to-view-id>/index.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{loginBean.login}</from-action>
+            <from-outcome>tienda</from-outcome>
+            <to-view-id>/tienda.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
