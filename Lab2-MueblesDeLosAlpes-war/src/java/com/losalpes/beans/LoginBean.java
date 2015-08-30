@@ -74,28 +74,28 @@ public class LoginBean
      * Realiza la autenticación de un usuario que desea entrar al sistema
      * @return tipoUsuario Devuelve el tipo de usuario
      */
-    public String login()
-    {
+    public String login(){
        
-        try
-        {
+        try {
             Usuario user = servicio.login(usuario, contraseña);
-            if (user.getTipo() == TipoUsuario.ADMINISTRADOR)
-            {
+            if (user.getTipo() == TipoUsuario.ADMINISTRADOR) {
                 return "inicio.xhtml";
-            }
-            else
-            {
+            } else if (user.getTipo() == TipoUsuario.CLIENTE) {
+                return "tienda";
+            } else {
                 return "";
             }
-        }
-        catch (AutenticacionException ex)
-        {
+        } catch (AutenticacionException ex) {
             error=true;
             FacesMessage mensaje=new FacesMessage(FacesMessage.SEVERITY_ERROR,ex.getMessage(),"");
             FacesContext.getCurrentInstance().addMessage("", mensaje);
             return "";
         }
+    }
+    
+    public String logout(){
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        return "index";
     }
 
     //-----------------------------------------------------------

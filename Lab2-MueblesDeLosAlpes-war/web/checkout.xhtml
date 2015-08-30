@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!--
+    Document   : catalogo
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/main-template.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:param name="titulo" value="Pagar" />
+    <ui:define name="body">
+
+        <h:form >
+
+            <!-- Se crea una tabla donde se presentan los muebles del sistema -->
+            <p:dataTable id="dataTablePagar"
+                         value="#{tiendaBean.mueblesSeleccionados}"
+                         var="muebleVar"
+                        >
+
+                <p:column headerText="Referencia">
+                    <h:outputText value="#{muebleVar.referencia}" />
+                </p:column>
+
+                <p:column headerText="Nombre">
+                    <h:outputText value="#{muebleVar.nombre}" />
+                </p:column>
+
+                <p:column headerText="Tipo">
+                    <h:outputText value="#{muebleVar.tipo}" />
+                </p:column>
+
+                <p:column headerText="Precio">
+                    <h:outputText value="#{muebleVar.precio}" >
+                        <f:convertNumber type="currency" currencySymbol="$"/>
+                    </h:outputText>
+                </p:column>
+
+                <p:summaryRow>
+                    <p:column colspan="3" style="text-align:right">
+                        <h:outputText value="Total:" />
+                    </p:column>
+                    <p:column>
+                        <h:outputText value="#{tiendaBean.total}"> 
+                            <f:convertNumber type="currency" currencySymbol="$" />
+                        </h:outputText>
+                    </p:column>
+                </p:summaryRow>
+
+            </p:dataTable>
+
+        </h:form>
+    
+
+    </ui:define>
+
+
+</ui:composition>
