@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!--
+    Document   : catalogo
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/main-template.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:param name="titulo" value="Tienda Web" />
+    <ui:define name="body">
+       
+        <h:form>
+
+                <!-- Se crea una tabla donde se presentan los muebles del sistema -->
+                <p:dataTable
+                    id="data"
+                    value="#{tiendaBean.muebles}"
+                    var="muebleVar"
+                    scrollable="false"
+                    scrollHeight="100px"
+                    paginator="true"
+                    paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                    resizableColumns="true"
+                    rows="5"
+                    selection="#{tiendaBean.mueblesSeleccionados}"
+                    rowKey="#{muebleVar.referencia}">
+        
+                    <p:column headerText="Referencia" sortBy="#{muebleVar.referencia}">
+                        <h:outputText value="#{muebleVar.referencia}" />
+                    </p:column>
+                    
+                    <p:column headerText="Nombre">
+                        <h:outputText value="#{muebleVar.nombre}" />
+                    </p:column>
+                    
+                    <p:column headerText="Descripción"
+                              style="white-space : normal ; width: 315px">
+                        <h:outputText value="#{muebleVar.descripcion}" />
+                    </p:column>
+                    
+                    <p:column headerText="Tipo">
+                        <h:outputText value="#{muebleVar.tipo}" />
+                    </p:column>
+                    
+                    <p:column headerText="Precio">
+                        <h:outputText value="#{muebleVar.precio}" >
+                            <f:convertNumber type="currency" currencySymbol="$"/>
+                        </h:outputText>
+                    </p:column>
+                    
+                    <p:column selectionMode="multiple"
+                              
+                              style="width:16px;text-align:center"/>
+                    
+                </p:dataTable>
+
+        </h:form>
+
+    </ui:define>
+
+
+</ui:composition>

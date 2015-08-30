@@ -14,8 +14,11 @@
         <h:form>
 
             <!-- Panel para agregar un nuevo mueble -->
-            <h:panelGroup>
-                <h:panelGrid width="100px" columns="1" columnClasses="pnlGrdClass, pnlGrdClass, pnlGrdClassLong">
+            <p:fieldset legend="Agregar mueble" 
+                        collapsed="true" 
+                        toggleable="true">
+                <h:panelGrid columns="3" cellpadding="2">
+                    
                     <h:outputLabel for="TxtReferencia"
                                      value="Referencia"/>
                     <h:inputText id="TxtReferencia"
@@ -27,12 +30,9 @@
                                    >
                         <f:validateLength minimum="1"/>
                     </h:inputText>
-                    <h:message id="nameMsg" for="TxtReferencia" />
-                </h:panelGrid>
-
-                <h:panelGrid width="100px" columns="1" columnClasses="pnlGrdClass, pnlGrdClass, pnlGrdClassLong">
-                    <h:outputLabel for="TxtNombre"
-                                     value="Nombre" />
+                    <h:message id="nameMsg" for="TxtReferencia" class="error"/>
+                
+                    <h:outputLabel for="TxtNombre" value="Nombre" />
                     <h:inputText id="TxtNombre"
                                    maxlength="20"
                                    size="20"
@@ -41,33 +41,48 @@
                                    required="true">
                         <f:validateLength minimum="1"/>
                     </h:inputText>
-                    <h:message id="pwMsg" for="TxtNombre" />
-                </h:panelGrid>
-
-                <h:panelGrid columns="1" width="100px"
-                               columnClasses="pnlGrdClass, pnlGrdClass, pnlGrdClassLong">
+                    <h:message id="pwMsg" for="TxtNombre" class="error"/>
+               
 
                     <h:outputLabel for="TxtDescripcion" value="Descripción" />
                     <h:inputTextarea id="TxtDescripcion"
-                                       value="#{catalogoBean.mueble.descripcion}"
-                                       rows="4" style="width: 125px"
-                                       label="Descripción"
-                                       >
+                                     value="#{catalogoBean.mueble.descripcion}"
+                                     rows="4" style="width: 140px"
+                                     label="Descripción">
                         <f:validateLength minimum="1"/>
 
                     </h:inputTextarea>
-                    <h:message id="descMsg" for="TxtDescripcion" />
-
-                </h:panelGrid>
-                <h:panelGrid>
-                    <h:selectOneMenu value="#{catalogoBean.mueble.tipo}">
+                    <h:message id="descMsg" for="TxtDescripcion" class="error"/>
+                    
+                    <h:outputLabel for="tipoMueble" value="Tipo mueble"/>
+                    <h:selectOneMenu id="tipoMueble" value="#{catalogoBean.mueble.tipo}">
                         <f:selectItems value="#{catalogoBean.tiposMuebles}" />
                     </h:selectOneMenu>
+                    <p:spacer/>
+                    
+                    
+                    <h:outputLabel for="precioMueble" value="Precio" />
+                    <h:inputText id="precioMueble"
+                                   maxlength="20"
+                                   value="#{catalogoBean.mueble.precio}"
+                                   label="Precio"
+                                   required="true">
+                        <f:validateLength minimum="1"/>
+                        <f:convertNumber type="currency" currencySymbol="$"/>
+                    </h:inputText>
+                    <h:message id="precioMuebleMsg" for="precioMueble" class="error"/>
+                    
+                    
+                </h:panelGrid>
+                
+                <h:panelGrid columns="3">
+                    <h:commandButton value="Agregar" action="#{catalogoBean.agregarMueble}" />
+                    <p:spacer/>
+                    <h:commandButton value="Limpiar" action="#{catalogoBean.limpiar}" />
                 </h:panelGrid>
 
-                <h:commandButton value="Agregar" action="#{catalogoBean.agregarMueble}" />
-                <h:commandButton value="Limpiar" action="#{catalogoBean.limpiar}" />
-            </h:panelGroup>
+                
+            </p:fieldset>
             
         </h:form>
         <h:form>
@@ -84,8 +99,7 @@
                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                     resizableColumns="true"
                     rows="5">
-
-                           
+        
                     <p:column headerText="Referencia" sortBy="#{file.referencia}">
                         <h:outputText value="#{file.referencia}" />
                     </p:column>
@@ -94,7 +108,8 @@
                         <h:outputText value="#{file.nombre}" />
                     </p:column>
                     
-                    <p:column headerText="Descripción">
+                    <p:column headerText="Descripción"
+                              style="white-space : normal ; width: 315px">
                         <h:outputText value="#{file.descripcion}" />
                     </p:column>
                     
@@ -103,11 +118,9 @@
                     </p:column>
                     
                     <p:column headerText="Precio">
-                        <h:outputText value="#{file.precio}" />
-                    </p:column>
-                    
-                    <p:column headerText="Comprar">
-                        <p:selectBooleanButton id="sel" value="#{file.seleccion}" onLabel="Sí" offLabel="No"/>
+                        <h:outputText value="#{file.precio}" >
+                            <f:convertNumber type="currency" currencySymbol="$"/>
+                        </h:outputText>
                     </p:column>
                     
                 </p:dataTable>
