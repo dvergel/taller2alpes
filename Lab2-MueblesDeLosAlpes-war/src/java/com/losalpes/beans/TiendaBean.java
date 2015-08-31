@@ -98,7 +98,7 @@ public class TiendaBean {
         for (Mueble mueble: mueblesSeleccionados) {
             subtotal = subtotal.add(mueble.getPrecio());
         }
-        impuestos.multiply(new BigDecimal("0.16"), MathContext.UNLIMITED);
+        impuestos = subtotal.multiply(new BigDecimal("0.16"), MathContext.UNLIMITED);
     }
     
     public void resetSelection(){

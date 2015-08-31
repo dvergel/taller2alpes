@@ -12,47 +12,101 @@
     <ui:param name="titulo" value="Pagar" />
     <ui:define name="body">
 
-        <h:form >
 
-            <!-- Se crea una tabla donde se presentan los muebles del sistema -->
-            <p:dataTable id="dataTablePagar"
+
+        <p:panel>
+            Datos del cliente
+        </p:panel>
+
+        <p:panel>
+
+            <p:dataTable var="mueble"
                          value="#{tiendaBean.mueblesSeleccionados}"
-                         var="muebleVar"
-                        >
+                         emptyMessage="No ha seleccionado muebles para comprar">
 
                 <p:column headerText="Referencia">
-                    <h:outputText value="#{muebleVar.referencia}" />
+                    <h:outputText value="#{mueble.referencia}"/>
                 </p:column>
 
                 <p:column headerText="Nombre">
-                    <h:outputText value="#{muebleVar.nombre}" />
+                    <h:outputText value="#{mueble.nombre}"/>
                 </p:column>
 
                 <p:column headerText="Tipo">
-                    <h:outputText value="#{muebleVar.tipo}" />
+                    <h:outputText value="#{mueble.tipo}"/>
                 </p:column>
 
-                <p:column headerText="Precio">
-                    <h:outputText value="#{muebleVar.precio}" >
+                <p:column headerText="Precio" style="text-align:right">
+                    <h:outputText value="#{mueble.precio}">
                         <f:convertNumber type="currency" currencySymbol="$"/>
                     </h:outputText>
                 </p:column>
+                <p:columnGroup type="footer">
+                    <p:row>
+                        <p:column colspan="3" footerText="Subtotal:"
+                                  style="text-align:right"/>
+                        <p:column footerText="$#{tiendaBean.subtotal}"/>
+                    </p:row>
 
-                <p:summaryRow>
-                    <p:column colspan="3" style="text-align:right">
-                        <h:outputText value="Total:" />
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{tiendaBean.total}"> 
-                            <f:convertNumber type="currency" currencySymbol="$" />
-                        </h:outputText>
-                    </p:column>
-                </p:summaryRow>
+                    <p:row>
+                        <p:column colspan="3" footerText="Impuestos:"
+                                  style="text-align:right"/>
+                        <p:column footerText="$#{tiendaBean.impuestos}"/>
+                    </p:row>
+
+                    <p:row>
+                        <p:column colspan="3" footerText="Total:"
+                                  style="text-align:right"/>
+                        <p:column footerText="$#{tiendaBean.total}"/>
+                    </p:row>
+                </p:columnGroup>
 
             </p:dataTable>
 
-        </h:form>
-    
+
+
+        </p:panel>
+        
+        <p:panel>
+            
+            <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+                <h:outputLabel value="Tipo de tarjeta" for="tipoTarjeta"/>
+                <p:selectOneRadio id="tipoTarjeta" value="---"  
+                                  layout="grid" columns="2">
+                    
+                    <f:selectItem itemValue="master" itemLabel="Master Card"/>
+                    <f:selectItem itemValue="visa" itemLabel="Visa"/>
+                    <f:selectItem itemValue="amex" itemLabel="American Express"/>
+                    <f:selectItem itemValue="diners" itemLabel="Diners Club"/>
+                    
+                </p:selectOneRadio>
+                
+                <h:outputLabel value="Número de la tarjeta"
+                               for="numeroTarjeta"/>
+                <p:inputText id="numeroTarjeta" value=""/>
+                
+                <h:outputLabel value="Fecha de vencimiento" 
+                               for="vencimientoTarjeta"/>
+                <p:inputMask id="vencimientoTarjeta" 
+                             value=""
+                             placeholder="MM/AAAA"
+                             mask="99/9999"/>
+                <h:outputLabel value="Código de seguridad"
+                               for="codigoTarjeta"/>
+                <p:inputText id="codigoTarjeta" value=""/>
+            </h:panelGrid>
+            
+            <h:panelGrid columns="2">
+                <p:commandButton value="Pagar" 
+                                 disabled="#{empty tiendaBean.mueblesSeleccionados}"/>
+                <p:commandButton value="Cancelar"/>
+            </h:panelGrid>
+            
+            
+        </p:panel>
+
+
+
 
     </ui:define>
 
