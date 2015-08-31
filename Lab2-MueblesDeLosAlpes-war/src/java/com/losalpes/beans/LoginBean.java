@@ -80,13 +80,12 @@ public class LoginBean {
                 return "logout";
             }
         } catch (AutenticacionException ex) {
-            error = true;
-            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), "");
+            error=true;
+            FacesMessage mensaje=new FacesMessage(FacesMessage.SEVERITY_ERROR,ex.getMessage(),"");
             FacesContext.getCurrentInstance().addMessage("", mensaje);
             return "";
         }
     }
-        //-----------------------------------------------------------
     // Getters y setters
     //-----------------------------------------------------------
 
@@ -151,3 +150,4 @@ public class LoginBean {
         error = false;
     }
 }
+        //-----------------------------------------------------------
