@@ -82,11 +82,11 @@ public class LoginBean
             Usuario user = servicio.login(usuario, contraseña);
             if (user.getTipo() == TipoUsuario.ADMINISTRADOR)
             {
-                return "inicio.xhtml";
+                return "login";
             }
             else
             {
-                return "";
+                return "logout";
             }
         }
         catch (AutenticacionException ex)
