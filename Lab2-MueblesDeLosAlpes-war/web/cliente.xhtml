@@ -29,16 +29,16 @@
                         <p:toolbar id="toolbar">
                             <p:toolbarGroup align="left">
                                 <p:commandButton title="Refrescar" icon="ui-icon-refresh"
-                                                 actionListener="#{crudBean.refresh}"
+                                                 actionListener="#{clienteBean.refresh}"
                                                  update=":toolbarForm :listForm :editForm :headerForm" />
                                 <p:commandButton title="Nuevo" icon="ui-icon-document"
-                                                 actionListener="#{crudBean.initNew}"
+                                                 actionListener="#{clienteBean.initNew}"
                                                  oncomplete="PF('editDlg').show()" update=":listForm :editForm :toolbarForm :headerForm" />
                                 <p:commandButton title="Editar" icon="ui-icon-pencil"
-                                                 actionListener="#{crudBean.initEdit}"
+                                                 actionListener="#{clienteBean.initEdit}"
                                                  oncomplete="PF('editDlg').show()" update=":editForm :headerForm"
-                                                 disabled="#{!crudBean.selected}" />
-                                <p:commandButton type="button" title="Eliminar" disabled="#{!crudBean.selected}"
+                                                 disabled="#{!clienteBean.selected}" />
+                                <p:commandButton type="button" title="Eliminar" disabled="#{!clienteBean.selected}"
                                                  icon="ui-icon-circle-close" onclick="PF('deleteCfmDlg').show()"/>
                                 <p:commandButton type="button" title="Imprimir"
                                                  icon="ui-icon-print">
@@ -51,20 +51,41 @@
                     <h:form id="listForm" prependId="false">
                         <div id="tableDiv">
                             <p:dataTable id="recordsDT" var="record" style="height: 40%;"
-                                         value="#{crudBean.list}" paginator="true" rows="10"
+                                         value="#{clienteBean.LClientes}" paginator="true" rows="10"
                                          emptyMessage="No existen datos"
-                                         selection="#{crudBean.selectedRecord}"
-                                         selectionMode="single" rowKey="#{record}"
-                                         sortBy="#{record}" sortOrder="descending">
+                                         selection="#{clienteBean.cliente}"
+                                         rowIndexVar="#{clienteBean.index}"
+                                         selectionMode="single" rowKey="#{record.numeroIdentificacion}"
+                                         sortBy="#{record.numeroIdentificacion}" sortOrder="descending">
                                 <p:ajax event="rowSelect" update=":toolbarForm :editForm"
-                                        listener="#{crudBean.onRowSelect}" />
+                                        listener="#{clienteBean.onRowSelect}" />
                                 <p:ajax event="rowUnselect" update=":toolbarForm :editForm"
-                                        listener="#{crudBean.onRowUnselect}" />
+                                        listener="#{clienteBean.onRowUnselect}" />
                                 <f:facet name="header">
-                                    <h:outputText value="#{crudBean.title}" />
+                                    <h:outputText value="#{clienteBean.title}" />
                                 </f:facet>
-                                <p:column sortBy="#{record}" headerText="#{crudBean.title}" >
-                                    <h:outputText value="#{record}">
+                                <p:column sortBy="#{record.apellidos} #{record.nombres}" headerText="Nombre Completo" >
+                                    <h:outputText value="#{record.apellidos} #{record.nombres}">
+                                    </h:outputText>
+                                </p:column>
+                                <p:column sortBy="#{record.tipoIdentificacion}" headerText="Tipo Identificacion" >
+                                    <h:outputText value="#{record.tipoIdentificacion}">
+                                    </h:outputText>
+                                </p:column>
+                                <p:column sortBy="#{record.numeroIdentificacion}" headerText="Numero Identificacion" >
+                                    <h:outputText value="#{record.numeroIdentificacion}">
+                                    </h:outputText>
+                                </p:column>
+                                <p:column sortBy="#{record.telefono}" headerText="Telefono" >
+                                    <h:outputText value="#{record.telefono}">
+                                    </h:outputText>
+                                </p:column>
+                                <p:column sortBy="#{record.celular}" headerText="Celular" >
+                                    <h:outputText value="#{record.celular}">
+                                    </h:outputText>
+                                </p:column>
+                                <p:column sortBy="#{record.correo}" headerText="Correo Electronico" >
+                                    <h:outputText value="#{record.correo}">
                                     </h:outputText>
                                 </p:column>
                             </p:dataTable>
@@ -75,32 +96,100 @@
                                      closable="false"
                                      message="Esta apunto de eliminar un registro de la tabla. ¿Confirmar operacion?">
                         <p:commandButton value="Si"
-                                         actionListener="#{crudBean.remove}"
+                                         actionListener="#{clienteBean.removerCliente()}"
                                          update=":listForm :editForm :toolbarForm :headerForm"
                                          onsuccess="PF('deleteCfmDlg').hide();"/>
                         <p:commandButton value="No" onclick="PF('deleteCfmDlg').hide();"
                                          type="button" />
                     </p:confirmDialog>
-                    <p:dialog header="#{crudBean.title}" appendTo="@(body)"
-                              widgetVar="editDlg" modal="true" width="450" height="180"
+                    <p:dialog header="#{clienteBean.title}"
+                              widgetVar="editDlg" modal="true" width="800" height="700"
                               resizable="false">
                         <!-- SIEMPRE USAR PREPEND ID FALSE -->
                         <h:form id="editForm" prependId="false">
-                            <p:panel header="Formulario">
+                            <p:panel header="Datos Personales">
                                 <!-- Estos PanelGrid contiene los elementos editables del CRUD -->
-                                <h:panelGrid id="editPnl" columns="2" width="350">
+                                <h:panelGrid id="editPnl" columns="2" width="700">
                                     <!-- EDICION DEL ENTITY -->
                                     <h:panelGrid columns="1" width="200">
-                                        <p:outputLabel for="nombre" value="Objeto"/>
-                                        <p:inputText id="nombre" value="#{crudBean.selectedRecord}" required="true" maxlength="150">
+                                        <p:outputLabel for="tipoIdentificacion" value="Tipo Identificacion"/>
+                                        <p:selectOneMenu id="tipoIdentificacion" style="width:98%" value="#{clienteBean.cliente.tipoIdentificacion}" required="true">
+                                            <f:selectItem itemValue="" itemLabel="Seleccione una opcion"/>
+                                            <f:selectItem itemValue="CC" itemLabel="Cedula Ciudadania"/>
+                                            <f:selectItem itemValue="PA" itemLabel="Pasaporte"/>
+                                            <f:selectItem itemValue="TI" itemLabel="Targeta Identificacion"/>
+                                        </p:selectOneMenu>
+                                        
+                                    </h:panelGrid> 
+                                    <h:panelGrid columns="2"><p:message class="error" id="tipoIdentificacionMsg" for="tipoIdentificacion" /></h:panelGrid>
+                                    <h:panelGrid columns="1" width="200">
+                                        <p:outputLabel for="numeroIdentificacion" value="Numero Identificacion"/>
+                                        <p:inputText id="numeroIdentificacion" value="#{clienteBean.cliente.numeroIdentificacion}" required="true" maxlength="150">
+                                        </p:inputText>
+                                        
+                                    </h:panelGrid> 
+                                    <h:panelGrid columns="2"><p:message class="error" id="numeroIdentificacionMsg" for="numeroIdentificacion" /></h:panelGrid>
+                                    <h:panelGrid columns="1" width="200">
+                                        <p:outputLabel for="nombre" value="Nombres"/>
+                                        <p:inputText id="nombre" value="#{clienteBean.cliente.nombres}" required="true" maxlength="150">
                                         </p:inputText>
                                     </h:panelGrid>
-                                    <p:message for="nombre" />
+                                    <h:panelGrid columns="2"><p:message class="error" id="nombreMsg" for="nombre" /></h:panelGrid>
+                                    <h:panelGrid columns="1" width="200">
+                                        <p:outputLabel for="apellido" value="Apellidos"/>
+                                        <p:inputText id="apellido" value="#{clienteBean.cliente.apellidos}" required="true" maxlength="150">
+                                        </p:inputText>
+                                    </h:panelGrid>
+                                    <h:panelGrid columns="2"><p:message class="error" id="apellidoMsg" for="apellido" /></h:panelGrid>
+                                    <h:panelGrid columns="1" width="200">
+                                        <p:outputLabel for="telefono" value="Telefono"/>
+                                        <p:inputText id="telefono" value="#{clienteBean.cliente.telefono}" onkeyup="validaInt(this)" required="true" maxlength="150">
+                                        </p:inputText>
+                                    </h:panelGrid>
+                                    <h:panelGrid columns="2"><p:message class="error" id="telefonoMsg" for="telefono" /></h:panelGrid>
+                                    <h:panelGrid columns="1" width="200">
+                                        <p:outputLabel for="celular" value="Celular"/>
+                                        <p:inputText id="celular" value="#{clienteBean.cliente.celular}" onkeyup="validaInt(this)" required="true" maxlength="150">
+                                        </p:inputText>
+                                    </h:panelGrid>
+                                    <h:panelGrid columns="2"><p:message class="error" id="celularMsg" for="celular" /></h:panelGrid>
+                                    <h:panelGrid columns="1" width="200">
+                                        <p:outputLabel for="correo" value="Correo Electronico"/>
+                                        <p:inputText id="correo" value="#{clienteBean.cliente.correo}" required="true" maxlength="150" validatorMessage="Formato invalido">
+                                            <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[a-zA-Z0-9]+)*(\.[A-Za-z]{2,})|^$" />
+                                        </p:inputText>
+                                    </h:panelGrid>
+                                    <h:panelGrid columns="2"><p:message class="error" id="correoMsg" for="correo" /></h:panelGrid>
+                                </h:panelGrid>
+                            </p:panel>
+                            <p:panel header="Targeta de Credito">
+                                <!-- Estos PanelGrid contiene los elementos editables del CRUD -->
+                                <h:panelGrid columns="2" width="450">
+                                    <!-- EDICION DEL ENTITY -->
+                                    <h:panelGrid columns="1" width="200">
+                                        <p:outputLabel for="numeroTargeta" value="Numero Targeta"/>
+                                        <p:inputText id="numeroTargeta" value="#{clienteBean.cliente.numeroTargeta}" onkeyup="validaInt(this)" required="false" maxlength="150">
+                                        </p:inputText>
+                                    </h:panelGrid>
+                                    <h:panelGrid columns="2"><p:message class="error" id="numeroTargetaMsg" for="numeroTargeta" /></h:panelGrid>
+                                    <h:panelGrid columns="1" width="200">
+                                        <p:outputLabel for="verficicacion" value="Numero Verificacion"/>
+                                        <p:inputText id="verficicacion" value="#{clienteBean.cliente.codigoVerificacion}" onkeyup="validaInt(this)" required="false" maxlength="5">
+                                        </p:inputText>
+                                    </h:panelGrid>
+                                    <h:panelGrid columns="2"><p:message class="error" id="verficicacionMsg" for="verficicacion" /></h:panelGrid>
+                                    <h:panelGrid columns="1" width="200">
+                                        <p:outputLabel for="fecha" value="Fecha Vencimiento"/>
+                                        <p:calendar value="#{clienteBean.cliente.fechaVencimiento}" id="fecha" required="false">
+                                            <f:convertDateTime pattern="dd/MM/yy">
+                                            </f:convertDateTime>
+                                        </p:calendar>
+                                    </h:panelGrid>
+                                    <h:panelGrid columns="2"><p:message class="error" id="fechaMsg" for="fecha" /></h:panelGrid>
                                     <f:facet name="footer">
                                         <p:commandButton value="Guardar" icon="ui-icon-circle-check"
-                                                         actionListener="#{crudBean.save}"
-                                                         update=":headerForm :toolbarForm :listForm :editForm"
-                                                         oncomplete="PF('editDlg').hide();"/>
+                                                         actionListener="#{clienteBean.agregarCliente()}"
+                                                         update=":headerForm :toolbarForm :listForm :editForm"/>
                                         <p:commandButton value="Cancelar"
                                                          icon="ui-icon-circle-close" onclick="PF('editDlg').hide();" />
                                     </f:facet>

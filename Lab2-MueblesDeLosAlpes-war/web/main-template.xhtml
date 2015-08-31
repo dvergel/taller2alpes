@@ -6,6 +6,13 @@
       xmlns:p="http://primefaces.org/ui">
 
     <h:head>
+        <script type="text/javascript" language="javascript">
+            function validaInt(d) {
+                d.value = d.value.replace(' ', '');
+                if (isNaN(d.value))
+                    d.value = d.value.substr(0, d.value.length - 1);
+            }
+        </script>
         <h:outputStylesheet name="mueblesheet.css"/>
         <meta http-equiv="content-type" content="text/html; charset=iso-8859-1"/>
         <title>

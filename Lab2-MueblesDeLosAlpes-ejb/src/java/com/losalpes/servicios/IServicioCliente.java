@@ -5,10 +5,19 @@
  */
 package com.losalpes.servicios;
 
+import com.losalpes.bos.Cliente;
+import java.util.List;
+
 /**
  *
  * @author de.vergel10
  */
-public class IServicioCliente {
+public interface IServicioCliente {
+    
+    public void agregarCliente(Cliente cliente);
+    
+    public void eliminarCliente(Cliente cliente);
+    
+    public List<Cliente> consultarCliente();
     
 }
