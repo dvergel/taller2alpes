@@ -12,7 +12,7 @@
     <ui:param name="titulo" value="Tienda Web" />
     <ui:define name="body">
        
-        <h:form>
+        <h:form id="tiendaDataTable">
 
                 <!-- Se crea una tabla donde se presentan los muebles del sistema -->
                 <p:dataTable
@@ -55,8 +55,46 @@
                               
                               style="width:16px;text-align:center"/>
                     
+                    <p:ajax event="rowSelectCheckbox" 
+                            listener="#{tiendaBean.recalcularValores()}"
+                            update="checkoutValues"/>
+                     <p:ajax event="rowUnselectCheckbox" 
+                            listener="#{tiendaBean.recalcularValores()}"
+                            update="checkoutValues"/>
+                    
                 </p:dataTable>
 
+        </h:form>
+        <h:form id="checkoutValues">
+            <p:growl id="growl" showDetail="true" sticky="true"/>
+            <h:panelGrid  columns="2" cellpadding="2">
+                <h:outputLabel value="Subtotal:" for="subtotalValue"/>
+                <h:outputText id="subtotalValue"
+                              value="#{tiendaBean.subtotal}">
+                    <f:convertNumber type="currency" currencySymbol="$"/>
+                </h:outputText>
+                
+                <h:outputLabel value="Impuestos (16%):" for="impuestosValue"/>
+                <h:outputText id="impuestosValue"
+                              value="#{tiendaBean.impuestos}">
+                    <f:convertNumber type="currency" currencySymbol="$"/>
+                </h:outputText>
+                
+                <h:outputLabel value="Total" for="totalValue"/>
+                <h:outputText id="totalValue"
+                              value="#{tiendaBean.total}">
+                    <f:convertNumber type="currency" currencySymbol="$"/>
+                </h:outputText>
+            </h:panelGrid>
+            <h:panelGrid  columns="2" cellpadding="2">
+                
+                <p:commandButton value="Pagar" 
+                                 action="#{tiendaBean.irAPagar}"
+                                 update="growl"/>
+                <p:commandButton value="Limpiar" 
+                                 actionListener="#{tiendaBean.resetSelection}"
+                                 update="checkoutValues, tiendaDataTable"/>
+            </h:panelGrid>
         </h:form>
 
     </ui:define>
