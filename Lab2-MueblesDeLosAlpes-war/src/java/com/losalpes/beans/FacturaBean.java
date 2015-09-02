@@ -8,6 +8,7 @@ package com.losalpes.beans;
 import com.losalpes.bos.Factura;
 import com.losalpes.servicios.IServicioFactura;
 import com.losalpes.servicios.impl.ServicioFacturaMock;
+import java.util.Date;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -26,9 +27,19 @@ public class FacturaBean {
     private IServicioFactura servicioFactura;
     
     /**
-     * Factura seleccionada
+     * Facturas a mostar en la vista
      */
-    private Factura facturaSeleccionada;
+    private List<Factura> facturas;
+    
+    /**
+     * Fecha de inicio de búsqueda (Filtro)
+     */
+    private Date inicio;
+    
+    /**
+     * Fecha final de búsqueda (filtro)
+     */
+    private Date fin;
     
     /**
      * Creates a new instance of FacturaBean
@@ -37,18 +48,54 @@ public class FacturaBean {
         servicioFactura = ServicioFacturaMock.getInstance();
     }
 
-    public Factura getFacturaSeleccionada() {
-        return facturaSeleccionada;
+    /**
+     * Retorna la fecha inicial para la búsqueda
+     * @return fecha inicio búsqueda
+     */
+    public Date getInicio() {
+        return inicio;
     }
 
-    public void setFacturaSeleccionada(Factura facturaSeleccionada) {
-        this.facturaSeleccionada = facturaSeleccionada;
+    /**
+     * Establece la fecha inicial para la búsqueda
+     * @param inicio inicio búsqueda
+     */
+    public void setInicio(Date inicio) {
+        this.inicio = inicio;
+    }
+
+    /**
+     * Retorna la fecha final para la búsqueda
+     * @return fecha fin búsqueda
+     */
+    public Date getFin() {
+        return fin;
+    }
+
+    /**
+     * Establece la fecha final para la búsqueda
+     * @param fin fecha fin busqueda.
+     */
+    public void setFin(Date fin) {
+        this.fin = fin;
+    }    
+    
+    /**
+     * Retorna la lista de facturas cargadas con o sin filtro
+     * @return Lista de facturas deseadas
+     */
+    public List<Factura> getFacturas(){
+        if (facturas == null || facturas.size() == 0) {
+            facturas = servicioFactura.obtenerFacturas(inicio, fin);
+        }
+        return facturas;
     }
     
-    
-    
-    public List<Factura> getFacturas(){
-        return servicioFactura.obtenerFacturas();
+    /**
+     * Método para realizar el filtro de facturas
+     */
+    public void filtar(){
+        facturas = servicioFactura.obtenerFacturas(inicio, fin);
     }
     
 }

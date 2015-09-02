@@ -7,14 +7,11 @@ package com.losalpes.beans;
 
 import com.losalpes.bos.DatosPago;
 import com.losalpes.bos.Factura;
-import com.losalpes.bos.Mueble;
 import com.losalpes.bos.TipoTarjeta;
 import com.losalpes.servicios.IServicioPago;
 import com.losalpes.servicios.impl.ServicioPagoMock;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -177,10 +174,6 @@ public class PagoBean {
         DatosPago datosPago = new DatosPago();
         Factura factura = new Factura();
         TipoTarjeta tTarjeta = TipoTarjeta.valueOf(tipoTarjeta);
-        
-        
-        System.out.println("Realizando pago valor: " + tiendaBean.getTotal()
-            + "pagando con " + tTarjeta);
         
         factura.setFecha(new Date());
         factura.setItemsComprados(tiendaBean.getMueblesSeleccionados());

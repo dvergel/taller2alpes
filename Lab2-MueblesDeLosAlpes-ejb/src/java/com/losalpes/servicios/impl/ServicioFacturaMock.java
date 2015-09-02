@@ -35,7 +35,6 @@ public class ServicioFacturaMock implements IServicioFactura {
         facturas.add(factura);
         int numero = facturas.size();
         factura.setNumero(numero);
-        System.out.println("Número de facturas en el sistema: " + facturas.size());
         return numero;
     }
 
@@ -46,7 +45,17 @@ public class ServicioFacturaMock implements IServicioFactura {
 
     @Override
     public List<Factura> obtenerFacturas(Date inicio, Date fin) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        if (inicio == null || fin == null) return facturas;
+        List<Factura> filtroFacturas = new ArrayList<>();
+        for (Factura factura: facturas) {
+            int iniCompare = factura.getFecha().compareTo(inicio);
+            int finCompare = factura.getFecha().compareTo(fin);
+            if (iniCompare >= 0 && finCompare < 0) {
+                filtroFacturas.add(factura);
+            }
+            System.out.println(factura.getFecha());
+        }
+        return filtroFacturas;
     }
 
     @Override

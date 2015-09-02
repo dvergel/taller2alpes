@@ -1,105 +1,96 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <body>
 
-        <ui:composition template="./main-template.xhtml">
+<ui:composition template="./main-template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-            <ui:define name="body">
-                <!-- SIEMPRE USAR UN PANEL PARA AGRUPAR LOS CONTENIDOS DEL MÓDULO -->
-                <p:panel id="crudPanel" style="min-height: 10px;">
-                    <!-- SIEMPRE USAR PREPEND ID FALSE -->
-                    <h:form id="atajoForm">
-                        <p:breadCrumb>
-                            <p:menuitem value="Atajo" action="home" />
-                            <p:menuitem value="Reporte" action="page4" />
-                        </p:breadCrumb>
-                    </h:form>
-                    <br/>
-                    <h:form id="headerForm" prependId="false">
-                        <!-- SIEMPRE USAR EL GROWL Y MESSAGES -->
-                        <p:growl id="growl" showDetail="true" />
-                        <p:messages id="messages" showDetail="true"/>
-                    </h:form>
-
-                    <!-- SIEMPRE USAR PREPEND ID FALSE -->
-                    <h:form id="listForm" prependId="false">
-                        <div id="tableDiv">
-                            <p:dataTable id="recordsDT" var="record" style="height: 40%;"
-                                         value="#{facturaBean.facturas}" paginator="true" rows="10"
-                                         emptyMessage="No existen datos"
-                                         selection="#{facturaBean.facturaSeleccionada}"
-                                         selectionMode="single"
-                                         rowKey="#{record.numero}"
-                                         sortBy="#{record.numero}" sortOrder="descending">
-
-                                <f:facet name="header">
-                                    <h:outputText value="Reporte de ventas" />
-                                </f:facet>
-                                <p:column sortBy="#{record.numero}" headerText="Número" >
-                                    <h:outputText value="#{record.numero}">
-                                    </h:outputText>
-                                </p:column>
-                                <p:column sortBy="#{record.idCliente}" headerText="Id Cliente" >
-                                    <h:outputText value="#{record.idCliente}">
-                                    </h:outputText>
-                                </p:column>
-                                <p:column sortBy="#{record.fecha}" headerText="Fecha" >
-                                    <h:outputText value="#{record.fecha}">
-                                    </h:outputText>
-                                </p:column>
-                                <p:column sortBy="#{record.valorTotal}" headerText="Valor total" >
-                                    <h:outputText value="#{record.valorTotal}">
-                                    </h:outputText>
-                                </p:column>
-                                <p:column sortBy="#{record.valorImpuestos}" headerText="Impuestos" >
-                                    <h:outputText value="#{record.valorTotal}">
-                                    </h:outputText>
-                                </p:column>
-                                <p:column sortBy="#{record.tipoTarjeta}" headerText="Tipo tarjeta" >
-                                    <h:outputText value="#{record.tipoTarjeta.marca}">
-                                    </h:outputText>
-                                </p:column>
-                                
-                                <!--
-                                <p:column sortBy="#{record.numeroIdentificacion}" filterBy="#{record.numeroIdentificacion}" filterMatchMode="contains" headerText="Numero Identificacion" >
-                                    <h:outputText value="#{record.numeroIdentificacion}">
-                                    </h:outputText>
-                                </p:column>
-                                <p:column sortBy="#{record.telefono}" headerText="Telefono" >
-                                    <h:outputText value="#{record.telefono}">
-                                    </h:outputText>
-                                </p:column>
-                                <p:column sortBy="#{record.celular}" headerText="Celular" >
-                                    <h:outputText value="#{record.celular}">
-                                    </h:outputText>
-                                </p:column>
-                                <p:column sortBy="#{record.correo}" filterBy="#{record.correo}" filterMatchMode="contains" headerText="Correo Electronico" >
-                                    <h:outputText value="#{record.correo}">
-                                    </h:outputText>
-                                </p:column> -->
-                            </p:dataTable>
-                        </div>
-
-                        <p:commandLink>
-                            <h:graphicImage  value="./resources/img/graphics/csv.png" />
-                            <p:dataExporter type="csv" target="recordsDT" fileName="Pagos" />
-                        </p:commandLink>
-
-                        <p:commandLink>
-                            <h:graphicImage value="./resources/img/graphics/xml.png" />
-                            <p:dataExporter type="xml" target="recordsDT" fileName="Pagos" />
-                        </p:commandLink>
-                    </h:form>
+    <ui:define name="body">
+        <!-- SIEMPRE USAR UN PANEL PARA AGRUPAR LOS CONTENIDOS DEL MÓDULO -->
+        <p:panel id="crudPanel" style="min-height: 10px;">
+            <!-- SIEMPRE USAR PREPEND ID FALSE -->
+            <h:form id="atajoForm">
+                <p:breadCrumb>
+                    <p:menuitem value="Atajo" action="home" />
+                    <p:menuitem value="Reporte" action="page4" />
+                </p:breadCrumb>
+            </h:form>
+            <br/>
+            <h:form id="searchForm" prependId="false">
+                <p:panel header="Filtro de búsqueda">
+                    <h:outputText value="Elija el filtro de fechas"/>
+                    <h:panelGrid columns="2">
+                        <p:outputLabel for="fechaInicio" value="Desde"/>
+                        <p:calendar id="fechaInicio" value="#{facturaBean.inicio}"
+                                    pattern="MM/dd/yyyy HH:mm:ss"/>
+                        
+                        <p:outputLabel for="fechaFin" value="Hasta"/>
+                        <p:calendar id="fechaFin" value="#{facturaBean.fin}"
+                                    pattern="MM/dd/yyyy HH:mm:ss"/>
+                    </h:panelGrid>
+                    <p:commandButton value="Filtrar"
+                                     actionListener="#{facturaBean.filtar}"
+                                     update="listForm"/>
                 </p:panel>
-            </ui:define>
+            </h:form>
+            <h:form id="headerForm" prependId="false">
+                <!-- SIEMPRE USAR EL GROWL Y MESSAGES -->
+                <p:growl id="growl" showDetail="true" />
+                <p:messages id="messages" showDetail="true"/>
+            </h:form>
 
-        </ui:composition>
+            <!-- SIEMPRE USAR PREPEND ID FALSE -->
+            <h:form id="listForm" prependId="false">
+                <div id="tableDiv">
+                    <p:dataTable id="recordsDT" var="record" style="height: 40%;"
+                                 value="#{facturaBean.facturas}" paginator="true" rows="10"
+                                 emptyMessage="No existen datos"
+                                 sortBy="#{record.numero}" sortOrder="ascending">
 
-    </body>
-</html>
+                        <f:facet name="header">
+                            <h:outputText value="Reporte de ventas" />
+                            <p:spacer/>
+                            
+                             <h:commandLink>
+                                 <img src="resources/img/graphics/csv.png" width="24"/>
+                                 <p:dataExporter type="csv" target="recordsDT" fileName="ventas" />
+                           </h:commandLink>
+                        </f:facet>
+                        <p:column sortBy="#{record.numero}" headerText="Número" >
+                            <h:outputText value="#{record.numero}"/>
+                        </p:column>
+                        <p:column sortBy="#{record.idCliente}" headerText="Id Cliente" >
+                            <h:outputText value="#{record.idCliente}"/>
+                        </p:column>
+                        <p:column sortBy="#{record.fecha}" headerText="Fecha" >
+                            <h:outputText value="#{record.fecha}">
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" locale="ES_co"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column sortBy="#{record.valorTotal}" headerText="Valor total" >
+                            <h:outputText value="#{record.valorTotal}">
+                                <f:convertNumber type="currency" currencySymbol="$"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column sortBy="#{record.valorImpuestos}" headerText="Impuestos" >
+                            <h:outputText value="#{record.valorImpuestos}">
+                                <f:convertNumber type="currency" currencySymbol="$"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column sortBy="#{record.tipoTarjeta}" headerText="Tipo tarjeta" >
+                            <h:outputText value="#{record.tipoTarjeta}" /> 
+                        </p:column>
+
+                    </p:dataTable>
+                    
+                </div>
+
+            </h:form>
+        </p:panel>
+    </ui:define>
+
+</ui:composition>
