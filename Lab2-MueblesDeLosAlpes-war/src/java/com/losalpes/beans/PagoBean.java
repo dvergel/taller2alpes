@@ -14,8 +14,10 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.context.FacesContext;
 
 
 /**
@@ -189,9 +191,11 @@ public class PagoBean {
         if (aprobacion <= 0) {
             //No se aprobó la transacción
             //Mostar mensaje de error en el pago
-            return "error";
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "No se aprovo la transaccion"));
+            return "page5";
         }
-        return "success";
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "OK", "El pago fue ingresado exitosamente"));
+        return "page3";
         
     }
     

@@ -15,9 +15,11 @@
 
 
 
-        <p:panel>
-            Datos del cliente
-        </p:panel>
+        <h:form id="headerForm" prependId="false">
+            <!-- SIEMPRE USAR EL GROWL Y MESSAGES -->
+            <p:growl id="growl" showDetail="true" />
+            <p:messages id="messages" showDetail="true"/>
+        </h:form>
 
         <p:panel>
 
@@ -96,8 +98,8 @@
                                       requiredMessage="Elija un tipo de tarjeta">
                         <c:forEach items="#{pagoBean.listaTiposTarjeta}" var="tipo">
                             <f:selectItem itemValue="#{tipo[0]}" 
-                                      itemLabel="#{tipo[1]}"
-                                      itemEscaped="false"/>
+                                          itemLabel="#{tipo[1]}"
+                                          itemEscaped="false"/>
                         </c:forEach>
                         <!--<f:selectItem itemValue="master1" 
                                       itemLabel="&lt;img src=&quot;resources/img/creditcards/master.gif&quot;/&gt;"
@@ -151,7 +153,7 @@
                                      disabled="#{empty tiendaBean.mueblesSeleccionados}"
                                      action="#{pagoBean.realizarPago}"
                                      update="formularioPago"/>
-                    <p:commandButton value="Volver(Falta Implementar)"/>
+                    <p:commandButton value="Volver"/>
                 </h:panelGrid>
 
             </h:form>

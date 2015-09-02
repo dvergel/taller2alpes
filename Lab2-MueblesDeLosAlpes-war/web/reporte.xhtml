@@ -60,10 +60,10 @@
                                  <p:dataExporter type="csv" target="recordsDT" fileName="ventas" />
                            </h:commandLink>
                         </f:facet>
-                        <p:column sortBy="#{record.numero}" headerText="Número" >
+                        <p:column sortBy="#{record.numero}" filterBy="#{record.numero}" filterMatchMode="contains" headerText="Número" >
                             <h:outputText value="#{record.numero}"/>
                         </p:column>
-                        <p:column sortBy="#{record.idCliente}" headerText="Id Cliente" >
+                        <p:column sortBy="#{record.idCliente}" filterBy="#{record.idCliente}" filterMatchMode="contains" headerText="Id Cliente" >
                             <h:outputText value="#{record.idCliente}"/>
                         </p:column>
                         <p:column sortBy="#{record.fecha}" headerText="Fecha" >
@@ -81,7 +81,7 @@
                                 <f:convertNumber type="currency" currencySymbol="$"/>
                             </h:outputText>
                         </p:column>
-                        <p:column sortBy="#{record.tipoTarjeta}" headerText="Tipo tarjeta" >
+                        <p:column sortBy="#{record.tipoTarjeta}" filterBy="#{record.tipoTarjeta}" filterMatchMode="contains" headerText="Tipo tarjeta" >
                             <h:outputText value="#{record.tipoTarjeta}" /> 
                         </p:column>
 

@@ -11,7 +11,11 @@
 
     <ui:param name="titulo" value="Tienda Web" />
     <ui:define name="body">
-       
+       <h:form id="headerForm" prependId="false">
+            <!-- SIEMPRE USAR EL GROWL Y MESSAGES -->
+            <p:growl id="growl" showDetail="true" />
+            <p:messages id="messages" showDetail="true"/>
+        </h:form>
         <h:form id="tiendaDataTable">
 
                 <!-- Se crea una tabla donde se presentan los muebles del sistema -->
