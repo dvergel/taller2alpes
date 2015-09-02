@@ -20,7 +20,7 @@ public class Cliente {
     private BigInteger telefono;
     private BigInteger celular;
     private String correo;
-    private String numeroTargeta;
+    private String numeroTarjeta;
     private int codigoVerificacion;
     private Date fechaVencimiento;
 
@@ -83,12 +83,12 @@ public class Cliente {
         this.correo = correo;
     }
 
-    public String getNumeroTargeta() {
-        return numeroTargeta;
+    public String getNumeroTarjeta() {
+        return numeroTarjeta;
     }
 
     public void setNumeroTargeta(String numeroTargeta) {
-        this.numeroTargeta = numeroTargeta;
+        this.numeroTarjeta = numeroTargeta;
     }
 
     public int getCodigoVerificacion() {

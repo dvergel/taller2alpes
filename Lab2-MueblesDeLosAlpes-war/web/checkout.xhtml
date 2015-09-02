@@ -109,8 +109,9 @@
 
             <h:panelGrid columns="2">
                 <p:commandButton value="Pagar" 
-                                 disabled="#{empty tiendaBean.mueblesSeleccionados}"/>
-                <p:commandButton value="Cancelar"/>
+                                 disabled="#{empty tiendaBean.mueblesSeleccionados}"
+                                 action="#{tiendaBean.realizarPago}"/>
+                <p:commandButton value="Volver(Falta Implementar)"/>
             </h:panelGrid>
 
 

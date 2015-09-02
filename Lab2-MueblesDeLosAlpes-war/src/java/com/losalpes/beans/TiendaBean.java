@@ -107,15 +107,21 @@ public class TiendaBean {
         impuestos = BigDecimal.ZERO;
     }
     
+    /**
+     * Redirige al cliente a la página de pago
+     * @return 
+     */
     public String irAPagar(){
         if (mueblesSeleccionados != null && mueblesSeleccionados.size()>0) {
             return "checkout";
         }
-        
         FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage("Successful",  "Your message: ") );
-        context.addMessage(null, new FacesMessage("Second Message", "Additional Message Detail"));
+        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Seleccione muebles "));
         return "";
+    }
+    
+    public String realizarPago(){
+        throw new UnsupportedOperationException("Falta implementación");
     }
     
 }

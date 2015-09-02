@@ -10,11 +10,12 @@
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 
-package com.losalpes.servicios;
+package com.losalpes.servicios.impl;
 
 import com.losalpes.bos.TipoUsuario;
 import com.losalpes.bos.Usuario;
 import com.losalpes.excepciones.AutenticacionException;
+import com.losalpes.servicios.IServicioSeguridad;
 import java.util.ArrayList;
 
 /**

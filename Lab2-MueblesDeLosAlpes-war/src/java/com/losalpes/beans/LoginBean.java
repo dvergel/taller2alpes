@@ -14,7 +14,7 @@ import com.losalpes.bos.TipoUsuario;
 import com.losalpes.bos.Usuario;
 import com.losalpes.excepciones.AutenticacionException;
 import com.losalpes.servicios.IServicioSeguridad;
-import com.losalpes.servicios.ServicioSeguridadMock;
+import com.losalpes.servicios.impl.ServicioSeguridadMock;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
