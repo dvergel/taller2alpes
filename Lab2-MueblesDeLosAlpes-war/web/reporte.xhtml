@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./main-template.xhtml">
+
+            <ui:define name="body">
+                <!-- SIEMPRE USAR UN PANEL PARA AGRUPAR LOS CONTENIDOS DEL MÓDULO -->
+                <p:panel id="crudPanel" style="min-height: 10px;">
+                    <!-- SIEMPRE USAR PREPEND ID FALSE -->
+                    <h:form id="atajoForm">
+                        <p:breadCrumb>
+                            <p:menuitem value="Atajo" action="home" />
+                            <p:menuitem value="Reporte" action="page4" />
+                        </p:breadCrumb>
+                    </h:form>
+                    <br/>
+                    <h:form id="headerForm" prependId="false">
+                        <!-- SIEMPRE USAR EL GROWL Y MESSAGES -->
+                        <p:growl id="growl" showDetail="true" />
+                        <p:messages id="messages" showDetail="true"/>
+                    </h:form>
+
+                    <!-- SIEMPRE USAR PREPEND ID FALSE -->
+                    <h:form id="listForm" prependId="false">
+                        <div id="tableDiv">
+                            <p:dataTable id="recordsDT" var="record" style="height: 40%;"
+                                         value="#{clienteBean.LClientes}" paginator="true" rows="10"
+                                         emptyMessage="No existen datos"
+                                         selection="#{clienteBean.cliente}"
+                                         rowIndexVar="#{clienteBean.index}"
+                                         selectionMode="single" rowKey="#{record.numeroIdentificacion}"
+                                         sortBy="#{record.numeroIdentificacion}" sortOrder="descending">
+
+                                <f:facet name="header">
+                                    <h:outputText value="#{clienteBean.title}" />
+                                </f:facet>
+                                <p:column sortBy="#{record.apellidos} #{record.nombres}" filterBy="#{record.apellidos} #{record.nombres}" filterMatchMode="contains" headerText="Nombre Completo" >
+                                    <h:outputText value="#{record.apellidos} #{record.nombres}">
+                                    </h:outputText>
+                                </p:column>
+                                <p:column sortBy="#{record.tipoIdentificacion}" filterBy="#{record.tipoIdentificacion}" filterMatchMode="contains"  headerText="Tipo Identificacion" >
+                                    <h:outputText value="#{record.tipoIdentificacion}">
+                                    </h:outputText>
+                                </p:column>
+                                <p:column sortBy="#{record.numeroIdentificacion}" filterBy="#{record.numeroIdentificacion}" filterMatchMode="contains" headerText="Numero Identificacion" >
+                                    <h:outputText value="#{record.numeroIdentificacion}">
+                                    </h:outputText>
+                                </p:column>
+                                <p:column sortBy="#{record.telefono}" headerText="Telefono" >
+                                    <h:outputText value="#{record.telefono}">
+                                    </h:outputText>
+                                </p:column>
+                                <p:column sortBy="#{record.celular}" headerText="Celular" >
+                                    <h:outputText value="#{record.celular}">
+                                    </h:outputText>
+                                </p:column>
+                                <p:column sortBy="#{record.correo}" filterBy="#{record.correo}" filterMatchMode="contains" headerText="Correo Electronico" >
+                                    <h:outputText value="#{record.correo}">
+                                    </h:outputText>
+                                </p:column>
+                            </p:dataTable>
+                        </div>
+
+                        <p:commandLink>
+                            <h:graphicImage  value="./resources/img/graphics/csv.png" />
+                            <p:dataExporter type="csv" target="recordsDT" fileName="Pagos" />
+                        </p:commandLink>
+
+                        <p:commandLink>
+                            <h:graphicImage value="./resources/img/graphics/xml.png" />
+                            <p:dataExporter type="xml" target="recordsDT" fileName="Pagos" />
+                        </p:commandLink>
+                    </h:form>
+                </p:panel>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

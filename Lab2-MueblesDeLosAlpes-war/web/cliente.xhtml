@@ -14,10 +14,12 @@
                 <!-- SIEMPRE USAR UN PANEL PARA AGRUPAR LOS CONTENIDOS DEL MÓDULO -->
                 <p:panel id="crudPanel" style="min-height: 10px;">
                     <!-- SIEMPRE USAR PREPEND ID FALSE -->
-                    <p:breadCrumb>
-                        <p:menuitem value="Atajo" url="" />
-                        <p:menuitem value="Crud" url=""/>
-                    </p:breadCrumb>
+                    <h:form id="atajoForm">
+                        <p:breadCrumb>
+                            <p:menuitem value="Atajo" action="home" />
+                            <p:menuitem value="Cliente" action="page2" />
+                        </p:breadCrumb>
+                    </h:form>
                     <br/>
                     <h:form id="headerForm" prependId="false">
                         <!-- SIEMPRE USAR EL GROWL Y MESSAGES -->
@@ -64,15 +66,15 @@
                                 <f:facet name="header">
                                     <h:outputText value="#{clienteBean.title}" />
                                 </f:facet>
-                                <p:column sortBy="#{record.apellidos} #{record.nombres}" headerText="Nombre Completo" >
+                                <p:column sortBy="#{record.apellidos} #{record.nombres}" filterBy="#{record.apellidos} #{record.nombres}" filterMatchMode="contains" headerText="Nombre Completo" >
                                     <h:outputText value="#{record.apellidos} #{record.nombres}">
                                     </h:outputText>
                                 </p:column>
-                                <p:column sortBy="#{record.tipoIdentificacion}" headerText="Tipo Identificacion" >
+                                <p:column sortBy="#{record.tipoIdentificacion}" filterBy="#{record.tipoIdentificacion}" filterMatchMode="contains"  headerText="Tipo Identificacion" >
                                     <h:outputText value="#{record.tipoIdentificacion}">
                                     </h:outputText>
                                 </p:column>
-                                <p:column sortBy="#{record.numeroIdentificacion}" headerText="Numero Identificacion" >
+                                <p:column sortBy="#{record.numeroIdentificacion}" filterBy="#{record.numeroIdentificacion}" filterMatchMode="contains" headerText="Numero Identificacion" >
                                     <h:outputText value="#{record.numeroIdentificacion}">
                                     </h:outputText>
                                 </p:column>
@@ -84,7 +86,7 @@
                                     <h:outputText value="#{record.celular}">
                                     </h:outputText>
                                 </p:column>
-                                <p:column sortBy="#{record.correo}" headerText="Correo Electronico" >
+                                <p:column sortBy="#{record.correo}" filterBy="#{record.correo}" filterMatchMode="contains" headerText="Correo Electronico" >
                                     <h:outputText value="#{record.correo}">
                                     </h:outputText>
                                 </p:column>
@@ -103,89 +105,94 @@
                                          type="button" />
                     </p:confirmDialog>
                     <p:dialog header="#{clienteBean.title}"
-                              widgetVar="editDlg" modal="true" width="800" height="700"
+                              widgetVar="editDlg" modal="true" width="800" height="450"
                               resizable="false">
                         <!-- SIEMPRE USAR PREPEND ID FALSE -->
                         <h:form id="editForm" prependId="false">
                             <p:panel header="Datos Personales">
                                 <!-- Estos PanelGrid contiene los elementos editables del CRUD -->
-                                <h:panelGrid id="editPnl" columns="2" width="700">
-                                    <!-- EDICION DEL ENTITY -->
+                                <h:panelGrid id="editPnl" columns="3" width="600">
+                                    <p:outputLabel for="tipoIdentificacion" value="Tipo Identificacion"/>
                                     <h:panelGrid columns="1" width="200">
-                                        <p:outputLabel for="tipoIdentificacion" value="Tipo Identificacion"/>
+                                        
                                         <p:selectOneMenu id="tipoIdentificacion" style="width:98%" value="#{clienteBean.cliente.tipoIdentificacion}" required="true">
-                                            <f:selectItem itemValue="" itemLabel="Seleccione una opcion"/>
                                             <f:selectItem itemValue="CC" itemLabel="Cedula Ciudadania"/>
                                             <f:selectItem itemValue="PA" itemLabel="Pasaporte"/>
                                             <f:selectItem itemValue="TI" itemLabel="Targeta Identificacion"/>
                                         </p:selectOneMenu>
-                                        
                                     </h:panelGrid> 
-                                    <h:panelGrid columns="2"><p:message class="error" id="tipoIdentificacionMsg" for="tipoIdentificacion" /></h:panelGrid>
+                                    <p:message class="error" id="tipoIdentificacionMsg" for="tipoIdentificacion" />
+                                    <p:outputLabel for="numeroIdentificacion" value="Numero Identificacion"/>
                                     <h:panelGrid columns="1" width="200">
-                                        <p:outputLabel for="numeroIdentificacion" value="Numero Identificacion"/>
+                                        
                                         <p:inputText id="numeroIdentificacion" value="#{clienteBean.cliente.numeroIdentificacion}" required="true" maxlength="150">
                                         </p:inputText>
-                                        
                                     </h:panelGrid> 
-                                    <h:panelGrid columns="2"><p:message class="error" id="numeroIdentificacionMsg" for="numeroIdentificacion" /></h:panelGrid>
+                                    <p:message class="error" id="numeroIdentificacionMsg" for="numeroIdentificacion" />
+                                    <p:outputLabel for="nombre" value="Nombres"/>
                                     <h:panelGrid columns="1" width="200">
-                                        <p:outputLabel for="nombre" value="Nombres"/>
+                                        
                                         <p:inputText id="nombre" value="#{clienteBean.cliente.nombres}" required="true" maxlength="150">
                                         </p:inputText>
                                     </h:panelGrid>
-                                    <h:panelGrid columns="2"><p:message class="error" id="nombreMsg" for="nombre" /></h:panelGrid>
+                                    <p:message class="error" id="nombreMsg" for="nombre" />
+                                    <p:outputLabel for="apellido" value="Apellidos"/>
                                     <h:panelGrid columns="1" width="200">
-                                        <p:outputLabel for="apellido" value="Apellidos"/>
+                                        
                                         <p:inputText id="apellido" value="#{clienteBean.cliente.apellidos}" required="true" maxlength="150">
                                         </p:inputText>
                                     </h:panelGrid>
-                                    <h:panelGrid columns="2"><p:message class="error" id="apellidoMsg" for="apellido" /></h:panelGrid>
+                                    <p:message class="error" id="apellidoMsg" for="apellido" />
+                                    <p:outputLabel for="telefono" value="Telefono"/>
                                     <h:panelGrid columns="1" width="200">
-                                        <p:outputLabel for="telefono" value="Telefono"/>
+                                        
                                         <p:inputText id="telefono" value="#{clienteBean.cliente.telefono}" onkeyup="validaInt(this)" required="true" maxlength="150">
                                         </p:inputText>
                                     </h:panelGrid>
-                                    <h:panelGrid columns="2"><p:message class="error" id="telefonoMsg" for="telefono" /></h:panelGrid>
+                                    <p:message class="error" id="telefonoMsg" for="telefono" />
+                                    <p:outputLabel for="celular" value="Celular"/>
                                     <h:panelGrid columns="1" width="200">
-                                        <p:outputLabel for="celular" value="Celular"/>
+                                        
                                         <p:inputText id="celular" value="#{clienteBean.cliente.celular}" onkeyup="validaInt(this)" required="true" maxlength="150">
                                         </p:inputText>
                                     </h:panelGrid>
-                                    <h:panelGrid columns="2"><p:message class="error" id="celularMsg" for="celular" /></h:panelGrid>
+                                    <p:message class="error" id="celularMsg" for="celular" />
+                                    <p:outputLabel for="correo" value="Correo Electronico"/>
                                     <h:panelGrid columns="1" width="200">
-                                        <p:outputLabel for="correo" value="Correo Electronico"/>
+                                        
                                         <p:inputText id="correo" value="#{clienteBean.cliente.correo}" required="true" maxlength="150" validatorMessage="Formato invalido">
                                             <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[a-zA-Z0-9]+)*(\.[A-Za-z]{2,})|^$" />
                                         </p:inputText>
                                     </h:panelGrid>
-                                    <h:panelGrid columns="2"><p:message class="error" id="correoMsg" for="correo" /></h:panelGrid>
+                                    <p:message class="error" id="correoMsg" for="correo" />
                                 </h:panelGrid>
                             </p:panel>
-                            <p:panel header="Targeta de Credito">
+                            <p:panel header="Tarjeta de Credito">
                                 <!-- Estos PanelGrid contiene los elementos editables del CRUD -->
-                                <h:panelGrid columns="2" width="450">
-                                    <!-- EDICION DEL ENTITY -->
+                                <h:panelGrid columns="3" width="600">
+                                    <p:outputLabel for="numeroTargeta" value="Numero Tarjeta"/>
                                     <h:panelGrid columns="1" width="200">
-                                        <p:outputLabel for="numeroTargeta" value="Numero Targeta"/>
-                                        <p:inputText id="numeroTargeta" value="#{clienteBean.cliente.numeroTargeta}" onkeyup="validaInt(this)" required="false" maxlength="150">
+                                        
+                                        <p:inputText id="numeroTargeta" value="#{clienteBean.cliente.numeroTarjeta}" onkeyup="validaInt(this)" required="false" maxlength="150">
                                         </p:inputText>
                                     </h:panelGrid>
-                                    <h:panelGrid columns="2"><p:message class="error" id="numeroTargetaMsg" for="numeroTargeta" /></h:panelGrid>
+                                    <p:message class="error" id="numeroTargetaMsg" for="numeroTargeta" />
+                                    <p:outputLabel for="verficicacion" value="Numero Verificacion"/>
                                     <h:panelGrid columns="1" width="200">
-                                        <p:outputLabel for="verficicacion" value="Numero Verificacion"/>
+                                        
                                         <p:inputText id="verficicacion" value="#{clienteBean.cliente.codigoVerificacion}" onkeyup="validaInt(this)" required="false" maxlength="5">
                                         </p:inputText>
                                     </h:panelGrid>
-                                    <h:panelGrid columns="2"><p:message class="error" id="verficicacionMsg" for="verficicacion" /></h:panelGrid>
+                                    <p:message class="error" id="verficicacionMsg" for="verficicacion" />
+                                    <p:outputLabel for="fecha" value="Fecha Vencimiento"/>
                                     <h:panelGrid columns="1" width="200">
-                                        <p:outputLabel for="fecha" value="Fecha Vencimiento"/>
+                                        
                                         <p:calendar value="#{clienteBean.cliente.fechaVencimiento}" id="fecha" required="false">
                                             <f:convertDateTime pattern="dd/MM/yy">
                                             </f:convertDateTime>
                                         </p:calendar>
                                     </h:panelGrid>
-                                    <h:panelGrid columns="2"><p:message class="error" id="fechaMsg" for="fecha" /></h:panelGrid>
+                                    <p:message class="error" id="fechaMsg" for="fecha" />
                                     <f:facet name="footer">
                                         <p:commandButton value="Guardar" icon="ui-icon-circle-check"
                                                          actionListener="#{clienteBean.agregarCliente()}"
@@ -197,6 +204,7 @@
                             </p:panel>
                         </h:form>
                     </p:dialog>
+                    
                 </p:panel>
             </ui:define>
 

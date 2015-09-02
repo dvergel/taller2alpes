@@ -9,8 +9,11 @@ import com.losalpes.bos.Cliente;
 import com.losalpes.servicios.IServicioCliente;
 import com.losalpes.servicios.impl.ServicioClienteMock;
 import java.util.List;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.event.UnselectEvent;
 
@@ -19,7 +22,7 @@ import org.primefaces.event.UnselectEvent;
  * @author Dev
  */
 @ManagedBean
-@ViewScoped
+@SessionScoped
 public class ClienteBean {
 
     private Cliente cliente = new Cliente();
@@ -77,6 +80,8 @@ public class ClienteBean {
         if (!isSelected()) {
             clientes.agregarCliente(cliente);
             cliente = new Cliente();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "OK", "El registro fue ingresado exitosamente"));
+            RequestContext.getCurrentInstance().execute("PF('editDlg').hide();");
         }
     }
 

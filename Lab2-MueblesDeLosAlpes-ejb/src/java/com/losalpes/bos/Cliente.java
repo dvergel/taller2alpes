@@ -87,10 +87,10 @@ public class Cliente {
         return numeroTarjeta;
     }
 
-    public void setNumeroTargeta(String numeroTargeta) {
-        this.numeroTarjeta = numeroTargeta;
+    public void setNumeroTarjeta(String numeroTarjeta) {
+        this.numeroTarjeta = numeroTarjeta;
     }
-
+    
     public int getCodigoVerificacion() {
         return codigoVerificacion;
     }

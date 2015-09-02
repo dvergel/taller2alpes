@@ -7,7 +7,6 @@
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
               xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">		
     <application>
-    
         <locale-config>            
             <default-locale>es</default-locale>        
         </locale-config>
@@ -25,6 +24,14 @@
         <navigation-case>
             <from-outcome>page2</from-outcome>
             <to-view-id>/cliente.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>page3</from-outcome>
+            <to-view-id>/tienda.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>page4</from-outcome>
+            <to-view-id>/reporte.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>cerrarSession</from-outcome>

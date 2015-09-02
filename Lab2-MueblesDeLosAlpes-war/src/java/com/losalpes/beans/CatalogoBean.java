@@ -18,6 +18,7 @@ import com.losalpes.servicios.IServicioCatalogo;
 import com.losalpes.servicios.impl.ServicioCatalogoMock;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
 
 
@@ -26,6 +27,7 @@ import javax.faces.model.SelectItem;
  * 
  */
 @ManagedBean
+@SessionScoped
 public class CatalogoBean
 {
 
