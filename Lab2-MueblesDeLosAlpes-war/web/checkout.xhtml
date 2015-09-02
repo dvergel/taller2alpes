@@ -7,7 +7,8 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:p="http://primefaces.org/ui">
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <ui:param name="titulo" value="Pagar" />
     <ui:define name="body">
@@ -68,53 +69,92 @@
         </p:panel>
 
         <p:panel>
+            <h:form id="formularioPago">
+                <h:panelGrid columns="3" style="margin-bottom:10px" cellpadding="5">
 
-            <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
-                <h:outputLabel value="Tipo de tarjeta" for="tipoTarjeta"/>
-                <p:selectOneRadio id="tipoTarjeta" value="---"  
-                                  layout="grid" columns="2">
+                    <p:outputLabel value="Identificación tarjetahabiente"
+                                   for="idCliente"/>
+                    <p:inputMask id="idCliente" 
+                                 value="#{pagoBean.idCliente}"
+                                 mask="999999?9999"
+                                 required="true"
+                                 requiredMessage="Digite el número de identificación"/>
+                    <h:message id="msgIdCliente" for="idCliente" class="error"/>
 
-                    <f:selectItem itemValue="master" 
-                                  itemLabel="&lt;img src=&quot;resources/img/creditcards/mastercard.gif&quot;/&gt;"
-                                  itemEscaped="false"/>
-                    
-                    <f:selectItem itemValue="visa"
-                                  itemLabel="&lt;img src=&quot;resources/img/creditcards/visa.gif&quot;/&gt;"
-                                  itemEscaped="false"/>
-                        
-                    <f:selectItem itemValue="amex"
-                                  itemLabel="&lt;img src=&quot;resources/img/creditcards/amex.gif&quot;/&gt;"
-                                  itemEscaped="false"/>
-                    
-                    <f:selectItem itemValue="diners" 
-                                  itemLabel="&lt;img src=&quot;resources/img/creditcards/dinersclub.gif&quot;/&gt;"
-                                  itemEscaped="false"/>
+                    <p:outputLabel value="Nombre tarjetahabiente"
+                                   for="nombreCliente"/>
+                    <p:inputText id="nombreCliente" 
+                                 value="#{pagoBean.nombreTarjetaHabiente}"
+                                 required="true"
+                                 requiredMessage="El nombre es obligatorio"/>
+                    <h:message for="nombreCliente" class="error"/>
 
-                </p:selectOneRadio>
+                    <p:outputLabel value="Tipo de tarjeta" for="tipoTarjeta"/>
+                    <p:selectOneRadio id="tipoTarjeta" value="#{pagoBean.tipoTarjeta}"  
+                                      layout="grid" columns="2"
+                                      required="true"
+                                      requiredMessage="Elija un tipo de tarjeta">
+                        <c:forEach items="#{pagoBean.listaTiposTarjeta}" var="tipo">
+                            <f:selectItem itemValue="#{tipo[0]}" 
+                                      itemLabel="#{tipo[1]}"
+                                      itemEscaped="false"/>
+                        </c:forEach>
+                        <!--<f:selectItem itemValue="master1" 
+                                      itemLabel="&lt;img src=&quot;resources/img/creditcards/master.gif&quot;/&gt;"
+                                      itemEscaped="false"/>
 
-                <h:outputLabel value="Número de la tarjeta"
-                               for="numeroTarjeta"/>
-                <p:inputText id="numeroTarjeta" value=""/>
+                        <f:selectItem itemValue="visa"
+                                      itemLabel="&lt;img src=&quot;resources/img/creditcards/visa.gif&quot;/&gt;"
+                                      itemEscaped="false"/>
 
-                <h:outputLabel value="Fecha de vencimiento" 
-                               for="vencimientoTarjeta"/>
-                <p:inputMask id="vencimientoTarjeta" 
-                             value=""
-                             placeholder="MM/AAAA"
-                             mask="99/9999"/>
-                <h:outputLabel value="Código de seguridad"
-                               for="codigoTarjeta"/>
-                <p:inputText id="codigoTarjeta" value=""/>
-            </h:panelGrid>
+                        <f:selectItem itemValue="amex"
+                                      itemLabel="&lt;img src=&quot;resources/img/creditcards/amex.gif&quot;/&gt;"
+                                      itemEscaped="false"/>
 
-            <h:panelGrid columns="2">
-                <p:commandButton value="Pagar" 
-                                 disabled="#{empty tiendaBean.mueblesSeleccionados}"
-                                 action="#{tiendaBean.realizarPago}"/>
-                <p:commandButton value="Volver(Falta Implementar)"/>
-            </h:panelGrid>
+                        <f:selectItem itemValue="diners" 
+                                      itemLabel="&lt;img src=&quot;resources/img/creditcards/diners.gif&quot;/&gt;"
+                                      itemEscaped="false"/> -->
+                    </p:selectOneRadio>
+                    <h:message for="tipoTarjeta" class="error"/>
 
+                    <p:outputLabel value="Número de la tarjeta"
+                                   for="numeroTarjeta"/>
+                    <p:inputMask id="numeroTarjeta" 
+                                 value="#{pagoBean.numeroTarjeta}"
+                                 mask="9999-9999-9999-9999"
+                                 required="true"
+                                 requiredMessage="Número de tarjeta requerido"/>
+                    <h:message for="numeroTarjeta" class="error"/>
 
+                    <p:outputLabel value="Fecha de vencimiento" 
+                                   for="vencimientoTarjeta"/>
+                    <p:inputMask id="vencimientoTarjeta" 
+                                 value="#{pagoBean.fechaVencimientoTarjeta}"
+                                 placeholder="MM/AAAA"
+                                 mask="99/9999"
+                                 required="true"
+                                 requiredMessage="Fecha de tarjeta requerida"/>
+                    <h:message for="vencimientoTarjeta" class="error"/>
+
+                    <p:outputLabel value="Código de seguridad"
+                                   for="codigoTarjeta"/>
+                    <p:inputMask id="codigoTarjeta" 
+                                 value="#{pagoBean.codSeguridadTarjeta}"
+                                 mask="999"
+                                 required="true"
+                                 requiredMessage="Código de seguridad requerido"/>
+                    <h:message for="codigoTarjeta" class="error"/> 
+                </h:panelGrid>
+
+                <h:panelGrid columns="2">
+                    <p:commandButton value="Pagar" 
+                                     disabled="#{empty tiendaBean.mueblesSeleccionados}"
+                                     action="#{pagoBean.realizarPago}"
+                                     update="formularioPago"/>
+                    <p:commandButton value="Volver(Falta Implementar)"/>
+                </h:panelGrid>
+
+            </h:form>
         </p:panel>
 
 

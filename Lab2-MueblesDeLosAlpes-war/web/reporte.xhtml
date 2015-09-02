@@ -31,24 +31,42 @@
                     <h:form id="listForm" prependId="false">
                         <div id="tableDiv">
                             <p:dataTable id="recordsDT" var="record" style="height: 40%;"
-                                         value="#{clienteBean.LClientes}" paginator="true" rows="10"
+                                         value="#{facturaBean.facturas}" paginator="true" rows="10"
                                          emptyMessage="No existen datos"
-                                         selection="#{clienteBean.cliente}"
-                                         rowIndexVar="#{clienteBean.index}"
-                                         selectionMode="single" rowKey="#{record.numeroIdentificacion}"
-                                         sortBy="#{record.numeroIdentificacion}" sortOrder="descending">
+                                         selection="#{facturaBean.facturaSeleccionada}"
+                                         selectionMode="single"
+                                         rowKey="#{record.numero}"
+                                         sortBy="#{record.numero}" sortOrder="descending">
 
                                 <f:facet name="header">
-                                    <h:outputText value="#{clienteBean.title}" />
+                                    <h:outputText value="Reporte de ventas" />
                                 </f:facet>
-                                <p:column sortBy="#{record.apellidos} #{record.nombres}" filterBy="#{record.apellidos} #{record.nombres}" filterMatchMode="contains" headerText="Nombre Completo" >
-                                    <h:outputText value="#{record.apellidos} #{record.nombres}">
+                                <p:column sortBy="#{record.numero}" headerText="Número" >
+                                    <h:outputText value="#{record.numero}">
                                     </h:outputText>
                                 </p:column>
-                                <p:column sortBy="#{record.tipoIdentificacion}" filterBy="#{record.tipoIdentificacion}" filterMatchMode="contains"  headerText="Tipo Identificacion" >
-                                    <h:outputText value="#{record.tipoIdentificacion}">
+                                <p:column sortBy="#{record.idCliente}" headerText="Id Cliente" >
+                                    <h:outputText value="#{record.idCliente}">
                                     </h:outputText>
                                 </p:column>
+                                <p:column sortBy="#{record.fecha}" headerText="Fecha" >
+                                    <h:outputText value="#{record.fecha}">
+                                    </h:outputText>
+                                </p:column>
+                                <p:column sortBy="#{record.valorTotal}" headerText="Valor total" >
+                                    <h:outputText value="#{record.valorTotal}">
+                                    </h:outputText>
+                                </p:column>
+                                <p:column sortBy="#{record.valorImpuestos}" headerText="Impuestos" >
+                                    <h:outputText value="#{record.valorTotal}">
+                                    </h:outputText>
+                                </p:column>
+                                <p:column sortBy="#{record.tipoTarjeta}" headerText="Tipo tarjeta" >
+                                    <h:outputText value="#{record.tipoTarjeta.marca}">
+                                    </h:outputText>
+                                </p:column>
+                                
+                                <!--
                                 <p:column sortBy="#{record.numeroIdentificacion}" filterBy="#{record.numeroIdentificacion}" filterMatchMode="contains" headerText="Numero Identificacion" >
                                     <h:outputText value="#{record.numeroIdentificacion}">
                                     </h:outputText>
@@ -64,7 +82,7 @@
                                 <p:column sortBy="#{record.correo}" filterBy="#{record.correo}" filterMatchMode="contains" headerText="Correo Electronico" >
                                     <h:outputText value="#{record.correo}">
                                     </h:outputText>
-                                </p:column>
+                                </p:column> -->
                             </p:dataTable>
                         </div>
 

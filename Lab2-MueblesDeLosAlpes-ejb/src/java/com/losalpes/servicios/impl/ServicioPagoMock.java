@@ -8,6 +8,7 @@ package com.losalpes.servicios.impl;
 import com.losalpes.bos.DatosPago;
 import com.losalpes.servicios.IServicioFactura;
 import com.losalpes.servicios.IServicioPago;
+import java.util.Random;
 
 /**
  *
@@ -23,7 +24,10 @@ public class ServicioPagoMock implements IServicioPago {
 
     @Override
     public int realizarPago(DatosPago datosPago) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        servicioFactura.guardarFactura(datosPago.getFactura());
+        /*Random random = new Random();
+        return random.nextInt(1000);*/
+        return 1000;
     }
     
 }

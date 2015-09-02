@@ -35,6 +35,7 @@ public class ServicioFacturaMock implements IServicioFactura {
         facturas.add(factura);
         int numero = facturas.size();
         factura.setNumero(numero);
+        System.out.println("Número de facturas en el sistema: " + facturas.size());
         return numero;
     }
 

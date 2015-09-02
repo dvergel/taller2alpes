@@ -1,6 +1,6 @@
 package com.losalpes.bos;
 
-import java.math.BigInteger;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -33,7 +33,7 @@ public class Factura {
     /**
      * Identificación del tarjetahabiente
      */
-    private BigInteger idCliente;
+    private BigDecimal idCliente;
     
     /**
      * Nombre del tarjetahabiente
@@ -43,17 +43,17 @@ public class Factura {
     /**
      * Valor de la compra o subtotal de la compra.
      */
-    private BigInteger valorCompra;
+    private BigDecimal valorCompra;
     
     /**
      * Valor de los impuestos generados
      */
-    private BigInteger valorImpuestos;
+    private BigDecimal valorImpuestos;
     
     /**
      * Valor total de la factura (Valor pagado)
      */
-    private BigInteger valorTotal;
+    private BigDecimal valorTotal;
     
     /**
      * Tipo de tarjeta usado para la compra
@@ -85,9 +85,9 @@ public class Factura {
      * @param tipoTarjeta
      * @param itemsComprados 
      */
-    public Factura(Date fecha, BigInteger idCliente, String nombreCliente, 
-                   BigInteger valorCompra, BigInteger valorImpuestos, 
-                   BigInteger valorTotal, TipoTarjeta tipoTarjeta, 
+    public Factura(Date fecha, BigDecimal idCliente, String nombreCliente, 
+                   BigDecimal valorCompra, BigDecimal valorImpuestos, 
+                   BigDecimal valorTotal, TipoTarjeta tipoTarjeta, 
                    List<Mueble> itemsComprados) {
         this.fecha = fecha;
         this.idCliente = idCliente;
@@ -135,7 +135,7 @@ public class Factura {
      * Retorna el número de identificación del cliente
      * @return identificacion del cliente
      */
-    public BigInteger getIdCliente() {
+    public BigDecimal getIdCliente() {
         return idCliente;
     }
 
@@ -143,7 +143,7 @@ public class Factura {
      * Establece el número de identificacion del tarjetahabiente
      * @param idCliente Id del cliente
      */
-    public void setIdCliente(BigInteger idCliente) {
+    public void setIdCliente(BigDecimal idCliente) {
         this.idCliente = idCliente;
     }
 
@@ -167,7 +167,7 @@ public class Factura {
      * Retorna el subtotal del valor de la compra
      * @return Subtotal de la compra
      */
-    public BigInteger getValorCompra() {
+    public BigDecimal getValorCompra() {
         return valorCompra;
     }
 
@@ -175,7 +175,7 @@ public class Factura {
      * Establece el subtotal de la compra
      * @param valorCompra Subtotal
      */
-    public void setValorCompra(BigInteger valorCompra) {
+    public void setValorCompra(BigDecimal valorCompra) {
         this.valorCompra = valorCompra;
     }
 
@@ -183,7 +183,7 @@ public class Factura {
      * Retorna el valor de los impuestos generados en la compra
      * @return Valor impuestos
      */
-    public BigInteger getValorImpuestos() {
+    public BigDecimal getValorImpuestos() {
         return valorImpuestos;
     }
 
@@ -191,7 +191,7 @@ public class Factura {
      * Establece el valor de los impuestos generados en la compra
      * @param valorImpuestos Valor impuestos
      */
-    public void setValorImpuestos(BigInteger valorImpuestos) {
+    public void setValorImpuestos(BigDecimal valorImpuestos) {
         this.valorImpuestos = valorImpuestos;
     }
 
@@ -200,7 +200,7 @@ public class Factura {
      * cliente
      * @return Valor total de compra 
      */
-    public BigInteger getValorTotal() {
+    public BigDecimal getValorTotal() {
         return valorTotal;
     }
 
@@ -209,7 +209,7 @@ public class Factura {
      * cliente
      * @param valorTotal Valor total de la compra
      */
-    public void setValorTotal(BigInteger valorTotal) {
+    public void setValorTotal(BigDecimal valorTotal) {
         this.valorTotal = valorTotal;
     }
 

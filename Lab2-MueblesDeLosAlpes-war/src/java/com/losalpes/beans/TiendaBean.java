@@ -7,7 +7,9 @@ package com.losalpes.beans;
 
 import com.losalpes.bos.Mueble;
 import com.losalpes.servicios.IServicioCatalogo;
+import com.losalpes.servicios.IServicioPago;
 import com.losalpes.servicios.impl.ServicioCatalogoMock;
+import com.losalpes.servicios.impl.ServicioPagoMock;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.List;
@@ -30,6 +32,11 @@ public class TiendaBean {
     private IServicioCatalogo catalogo;
     
     /**
+     * Servicio de pago de facturas
+     */
+    private IServicioPago servicioPago;
+    
+    /**
      * Muebles seleccionados por el usuario
      */
     private List<Mueble> mueblesSeleccionados;
@@ -43,6 +50,7 @@ public class TiendaBean {
      * Impuestos generados por la compra
      */
     private BigDecimal impuestos;
+    
 
     /**
      * Creates a new instance of TiendaBean
@@ -51,6 +59,7 @@ public class TiendaBean {
         subtotal = BigDecimal.ZERO;
         impuestos = BigDecimal.ZERO;
         catalogo = new ServicioCatalogoMock();
+        servicioPago = new ServicioPagoMock();
     }
 
     public List<Mueble> getMueblesSeleccionados() {
@@ -93,6 +102,10 @@ public class TiendaBean {
         return subtotal.add(impuestos);
     }
     
+    /**
+     * Recalcula los valores de la compra a medida que se modifica la selección
+     * de muebles
+     */
     public void recalcularValores(){
         subtotal = BigDecimal.ZERO;
         for (Mueble mueble: mueblesSeleccionados) {
@@ -101,6 +114,9 @@ public class TiendaBean {
         impuestos = subtotal.multiply(new BigDecimal("0.16"), MathContext.UNLIMITED);
     }
     
+    /**
+     * Elimina todos los elementos seleccionados
+     */
     public void resetSelection(){
         mueblesSeleccionados = null;
         subtotal = BigDecimal.ZERO;
@@ -120,8 +136,8 @@ public class TiendaBean {
         return "";
     }
     
-    public String realizarPago(){
-        throw new UnsupportedOperationException("Falta implementación");
-    }
+    
+    
+   
     
 }

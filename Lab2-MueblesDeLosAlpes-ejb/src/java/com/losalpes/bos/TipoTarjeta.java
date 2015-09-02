@@ -10,10 +10,10 @@ package com.losalpes.bos;
  */
 public enum TipoTarjeta {
     
-    MASTER_CARD("Master Card","master"),
-    VISA("Visa","visa"),
-    AMERICAN_EXPRESS("American Express", "amex"),
-    DINERS("Diners Club Internacional","diners");
+    MASTER("Master Card"),
+    VISA("Visa"),
+    AMEX("American Express"),
+    DINERS("Diners Club Internacional");
         
     /**
      * Nombre de la marca de la tarjeta
@@ -25,18 +25,12 @@ public enum TipoTarjeta {
      */
     private String alias;
     
-    private TipoTarjeta(String marca, String alias){
+    private TipoTarjeta(String marca){
         this.marca = marca;
-        this.alias = alias;
     }
 
-    @Override
-    public String toString() {
+    public String getMarca() {
         return marca;
-    }
-
-    public String getAlias() {
-        return alias;
-    }        
+    }  
         
 }
